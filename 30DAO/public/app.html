@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang='en'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover'>
+<title>30DAO</title>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'>
+<style>
+:root{--bg:#fafaf7;--card:#fff;--ink:#17201b;--mute:#6b7570;--line:#e7e9e4;--acc:#15764a;--acc-i:#fff;--soft:#eef5f0;--bad:#c4422b}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1411;--card:#171d19;--ink:#ecf1ed;--mute:#98a39c;--line:#26302a;--acc:#4cc38a;--acc-i:#07130d;--soft:#1b2a21;--bad:#ff8a70}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+small,.mute{color:var(--mute);font-size:12.5px}
+header{max-width:1100px;margin:0 auto;padding:24px 20px 8px}
+h1{margin:0;font-size:22px;font-weight:700;letter-spacing:-.02em}
+header p{margin:2px 0 0;color:var(--mute)}
+.app{max-width:1100px;margin:0 auto;padding:12px 20px 56px;display:grid;grid-template-columns:290px 1fr;gap:28px;align-items:start}
+@media(max-width:820px){.app{grid-template-columns:1fr;gap:16px}}
+.side{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 18px}
+@media(min-width:821px){.side{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}}
+.f{padding:14px 0;border-bottom:1px solid var(--line)}.f:last-child{border:0}
+.lab{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-weight:600;font-size:13.5px}
+.lab b{font-size:15px;color:var(--acc)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{flex:1;border:0;background:none;padding:8px 6px;font-size:13.5px;border-right:1px solid var(--line)}.seg button:last-child{border:0}
+.seg button[aria-pressed=true]{background:var(--acc);color:var(--acc-i);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:none;border-radius:99px;padding:5px 11px;font-size:13px}
+.chip[aria-pressed=true]{background:var(--soft);border-color:var(--acc);color:var(--acc);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--acc);margin:0}
+.step{display:flex;align-items:center;gap:10px}.step button{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:none}
+.step span{min-width:18px;text-align:center;font-weight:700}
+details summary{cursor:pointer;font-weight:600;font-size:13.5px;list-style:none;padding:2px 0}
+details summary::before{content:'+ ';color:var(--acc)}details[open] summary::before{content:'\2212 '}
+details .f{border:0;padding:12px 0 0}
+.sec{margin-bottom:28px}
+.sec h2{margin:0 0 12px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:10px}
+@media(max-width:560px){.sum{grid-template-columns:repeat(2,1fr)}}
+.sum b{display:block;font-size:24px;font-weight:700;letter-spacing:-.02em}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--acc);transition:width .3s}.bar.over i{background:var(--bad)}
+.tabs{display:flex;gap:4px;margin-bottom:6px;overflow-x:auto}
+.tab{border:0;background:none;padding:8px 14px;border-radius:8px;font-weight:600;color:var(--mute)}
+.tab[aria-selected=true]{background:var(--ink);color:var(--bg)}
+.mr{display:grid;grid-template-columns:84px 1fr auto auto;gap:12px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.mr.lock{background:var(--soft);margin:0 -10px;padding:14px 10px;border-radius:8px}
+@media(max-width:620px){.mr{grid-template-columns:1fr auto}.sl{grid-column:1/3}.ma{grid-column:1/3}}
+.sl{font-size:12.5px;color:var(--mute);font-weight:500}
+.mn b{display:flex;align-items:center;gap:8px;font-weight:600}.mn small{display:block}
+.dt{width:9px;height:9px;border-radius:2px;display:inline-block;flex:none}
+.mx{text-align:right;font-weight:600}.mx small{display:block;color:var(--acc);font-weight:500}
+.ma{display:flex;gap:6px}.ma button{border:1px solid var(--line);background:none;border-radius:8px;padding:4px 10px;font-size:13px}
+.ma button[aria-pressed=true]{border-color:var(--acc);color:var(--acc)}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:8px}
+.opt .on{flex:1}.opt .on small{display:block}
+.opt[aria-pressed=true]{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
+.opt>b{font-size:18px}
+.rd{width:16px;height:16px;border-radius:50%;border:2px solid var(--line)}.opt[aria-pressed=true] .rd{border:5px solid var(--acc)}
+.tag{background:var(--acc);color:var(--acc-i);font-size:11px;font-weight:600;border-radius:99px;padding:1px 8px;margin-left:8px}
+.cart{border:1px solid var(--line);border-radius:12px;background:var(--card);margin-top:12px;overflow:hidden}
+.ch{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;padding:10px 14px;background:var(--soft)}
+.ch span{flex:1;color:var(--mute);font-size:12.5px}.ch a{color:var(--acc);font-weight:600;font-size:13px}
+.cart ul{list-style:none;margin:0;padding:4px 14px}.cart li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}.cart li:last-child{border:0}
+.note{font-size:12.5px}.warn{color:var(--bad)}
+.cp{border:1px solid var(--line);background:none;border-radius:8px;padding:4px 10px;font-size:13px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<header><h1>30DAO</h1><p>Meal plan, grocery list and the cheapest cart, in one place.</p></header>
+<div class='app'>
+<aside class='side'>
+<div class='f'><div class='lab'>Diet</div><div class='seg' data-k='diet'><button data-v='veg'>Veg</button><button data-v='egg'>Egg</button><button data-v='nonveg'>Non-veg</button></div></div>
+<div class='f'><div class='lab'>Goal</div><div class='seg' data-k='goal'><button data-v='lose'>Lose fat</button><button data-v='maintain'>Maintain</button><button data-v='gain'>Build</button></div></div>
+<div class='f'><div class='lab'>Calories per day<b id='kv'></b></div><input type='range' id='kcal' min='1200' max='3500' step='50' aria-label='Calories per day'></div>
+<div class='f'><div class='lab'>Protein per day<b id='prv'></b></div><input type='range' id='prot' min='40' max='200' step='5' aria-label='Protein per day'></div>
+<div class='f'><div class='lab'>People<div class='step'><button id='pm' aria-label='Fewer people'>−</button><span id='pv'></span><button id='pp' aria-label='More people'>+</button></div></div></div>
+<div class='f'><div class='lab'>Weekly budget<b id='bv'></b></div><input type='range' id='bud' min='800' max='12000' step='100' aria-label='Weekly budget'></div>
+<div class='f'><details><summary>More options</summary>
+<div class='f'><div class='lab'>Cuisine</div><div class='seg' data-k='region'><button data-v='a'>Mixed</button><button data-v='n'>North</button><button data-v='s'>South</button></div></div>
+<div class='f'><div class='lab'>Avoid</div><div class='chips' data-k='ex' data-multi='1'><button class='chip' data-v='dairy'>Dairy</button><button class='chip' data-v='peanut'>Peanuts</button><button class='chip' data-v='soya'>Soy</button><button class='chip' data-v='egg'>Egg</button></div></div>
+<div class='f'><div class='lab'>Shop at</div><div class='chips' data-k='st' data-multi='1' id='stc'></div></div>
+<div class='f'><div class='lab'>Optimise for</div><div class='seg' data-k='prio'><button data-v='cheap'>Price</button><button data-v='few'>Fewer orders</button><button data-v='fast'>Speed</button></div></div>
+<div class='f'><button class='chip' id='loc'>Use my location</button> <small id='lm'></small></div>
+</details></div>
+<div class='f'><button class='chip' id='re' style='width:100%;padding:9px'>Reshuffle unlocked meals</button></div>
+</aside>
+<main id='main'></main></div>
+<script>
+const ITEMS={oats:['Rolled oats','g',1000,190],milk:['Milk','ml',1000,68],banana:['Banana','pc',6,48],egg:['Eggs','pc',12,90],bread:['Brown bread','pc',1,50],paneer:['Paneer','g',200,95],rice:['Rice','g',5000,420],dal:['Toor dal','g',1000,170],atta:['Atta','g',5000,260],chicken:['Chicken','g',500,150],fish:['Fish (rohu)','g',500,190],tomato:['Tomato','g',500,30],onion:['Onion','g',1000,40],spinach:['Spinach','g',250,25],potato:['Potato','g',1000,38],curd:['Curd','g',400,38],peanut:['Peanuts','g',500,95],poha:['Poha','g',500,48],besan:['Besan','g',500,62],veg:['Mixed veg','g',500,45],oil:['Cooking oil','ml',1000,150],chana:['Chickpeas','g',500,80],apple:['Apple','pc',4,120],soya:['Soya chunks','g',200,45],batter:['Idli/dosa batter','g',1000,90],rava:['Rava','g',500,45]};
+const M=[
+['Oats, milk & banana','b','v',380,14,'a',{oats:50,milk:200,banana:1}],
+['Poha with peanuts','b','v',340,9,'a',{poha:70,peanut:15,onion:30,oil:8}],
+['Besan chilla & curd','b','v',360,17,'n',{besan:60,onion:30,tomato:30,curd:80,oil:8}],
+['Paneer sandwich','b','v',420,20,'n',{bread:3,paneer:60,tomato:30}],
+['Idli with sambar','b','v',330,12,'s',{batter:200,dal:30,veg:60,oil:6}],
+['Masala dosa','b','v',420,10,'s',{batter:180,potato:100,onion:30,oil:12}],
+['Veg upma','b','v',350,9,'s',{rava:70,veg:60,peanut:10,oil:10}],
+['Egg bhurji & bread','b','e',400,22,'n',{egg:3,bread:2,onion:30,tomato:30,oil:8}],
+['Boiled eggs & apple','b','e',330,19,'a',{egg:3,apple:1}],
+['Dal, rice & mixed veg','m','v',620,22,'a',{dal:60,rice:90,veg:120,oil:10}],
+['Chapati & paneer bhurji','m','v',680,30,'n',{atta:100,paneer:100,onion:40,tomato:40,oil:12}],
+['Chana masala & rice','m','v',640,24,'n',{chana:80,rice:90,onion:40,tomato:50,oil:10}],
+['Palak dal & chapati','m','v',600,24,'n',{dal:60,spinach:100,atta:80,oil:10}],
+['Soya pulao & curd','m','v',620,34,'a',{soya:50,rice:90,veg:80,curd:100,oil:10}],
+['Aloo sabzi, chapati, curd','m','v',580,18,'n',{potato:150,atta:80,curd:100,oil:12}],
+['Sambar rice','m','v',600,20,'s',{dal:60,rice:100,veg:100,oil:10}],
+['Curd rice & potato fry','m','v',560,14,'s',{rice:100,curd:150,potato:100,oil:10}],
+['Egg curry & chapati','m','e',640,30,'a',{egg:3,atta:90,onion:50,tomato:60,oil:12}],
+['Chicken curry & rice','m','n',720,42,'a',{chicken:150,rice:90,onion:60,tomato:60,oil:14}],
+['Fish curry & rice','m','n',680,36,'s',{fish:150,rice:90,onion:50,tomato:50,oil:12}],
+['Chicken stir-fry & chapati','m','n',660,40,'a',{chicken:130,veg:120,atta:70,oil:12}]];
+const AL={dairy:['milk','paneer','curd'],peanut:['peanut'],soya:['soya'],egg:['egg']};
+const ST=[{id:'Blinkit',f:1.08,fee:25,free:199,eta:'10-15 min',sp:1,url:'https://blinkit.com'},{id:'Zepto',f:1.06,fee:30,free:149,eta:'10-15 min',sp:1,url:'https://www.zeptonow.com'},{id:'BigBasket',f:1,fee:30,free:500,eta:'Slot today or tomorrow',sp:2,url:'https://www.bigbasket.com'},{id:'Local supermarket',f:.92,fee:0,free:0,eta:'In person',sp:3,url:'https://www.google.com/maps/search/supermarket+near+me'}];
+const hash=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return h};
+let PR={};
+const priceOf=(i,s)=>PR[s.id]&&PR[s.id][i]!=null?PR[s.id][i]:Math.round(ITEMS[i][3]*s.f*(1+((hash(i+s.id)%13)-6)/100));
+const S={diet:'veg',goal:'maintain',kcal:2000,protein:75,ppl:2,bud:3000,region:'a',ex:{},st:{Blinkit:1,Zepto:1,BigBasket:1,'Local supermarket':1},prio:'cheap',day:0,pantry:{},lock:{},pick:null};
+let plan=[];const $=i=>document.getElementById(i),inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],DC={v:'#1a9b4a',e:'#e0a000',n:'#c0392b'};
+$('stc').innerHTML=ST.map(s=>`<button class='chip' data-v='${s.id}'>${s.id}</button>`).join('');
+function pool(slot){const ok={veg:'v',egg:'ve',nonveg:'ven'}[S.diet];
+ let p=M.filter(m=>m[1]===slot&&ok.includes(m[2])&&(S.region==='a'||m[5]===S.region||m[5]==='a')&&!Object.keys(S.ex).some(a=>S.ex[a]&&AL[a].some(i=>m[6][i])));
+ return p.length?p:M.filter(m=>m[1]===slot&&ok.includes(m[2]))}
+function gen(){for(let d=0;d<7;d++){plan[d]=plan[d]||[];for(let s=0;s<3;s++){if(S.lock[d+'-'+s]&&plan[d][s])continue;
+ const p=pool(s?'m':'b'),bad=new Set([...plan[d].filter((_,j)=>j!==s&&plan[d][j]),plan[d-1]&&plan[d-1][s]]);
+ const c=p.filter(m=>!bad.has(m));const a=c.length?c:p,tr=S.protein/S.kcal;let best=null;for(let n=0;n<3;n++){const m=a[Math.random()*a.length|0];if(!best||Math.abs(m[4]/m[3]-tr)<Math.abs(best[4]/best[3]-tr))best=m}plan[d][s]=best}}}
+function swap(d,s){const p=pool(s?'m':'b').filter(m=>m!==plan[d][s]);if(p.length)plan[d][s]=p[Math.random()*p.length|0];render()}
+const kf=d=>Math.min(1.8,Math.max(.6,S.kcal/plan[d].reduce((a,m)=>a+m[3],0)));
+function grocery(){const L={};plan.forEach((day,d)=>{const k=kf(d);day.forEach(m=>{for(const i in m[6])L[i]=(L[i]||0)+m[6][i]*k*S.ppl})});return L}
+const packs=(i,L)=>Math.max(1,Math.ceil(L[i]/ITEMS[i][2]));
+function cost(a,L){const sub={};for(const i in a)sub[a[i].id]=(sub[a[i].id]||0)+packs(i,L)*priceOf(i,a[i]);let fees=0,tot=0;
+ for(const id in sub){const s=ST.find(x=>x.id===id),f=sub[id]>=s.free?0:s.fee;fees+=f;tot+=sub[id]+f}
+ const ss=Object.keys(sub).map(id=>ST.find(x=>x.id===id));return{total:tot,fees,sub,stores:ss,sp:ss.length?Math.max(...ss.map(s=>s.sp)):0}}
+function options(L){const its=Object.keys(L).filter(i=>!S.pantry[i]),en=ST.filter(s=>S.st[s.id]);if(!its.length||!en.length)return[];
+ const best=set=>{const a={};its.forEach(i=>a[i]=set.reduce((m,s)=>priceOf(i,s)<priceOf(i,m)?s:m));return a};
+ const o=en.map(s=>{const a={};its.forEach(i=>a[i]=s);return{name:s.id+' only',a,...cost(a,L)}});
+ let b=null;for(let i=0;i<en.length;i++)for(let j=i+1;j<en.length;j++){const a=best([en[i],en[j]]),c=cost(a,L);if(!b||c.total<b.total)b={name:'Best 2-store split',a,...c}}
+ if(b)o.push(b);if(en.length>2){const a=best(en);o.push({name:'Cheapest per item',a,...cost(a,L)})}
+ return o}
+function recommend(o){const sc={cheap:x=>x.total,few:x=>x.stores.length*1e6+x.total,fast:x=>x.sp*1e6+x.total};return o.reduce((m,x)=>sc[S.prio](x)<sc[S.prio](m)?x:m)}
+function render(){const L=grocery(),o=options(L),rec=o.length?recommend(o):null,cur=(S.pick&&o.find(x=>x.name===S.pick))||rec;
+ const kc=plan.map((_,d)=>kf(d)*plan[d].reduce((a,m)=>a+m[3],0)),pr=plan.map((day,d)=>kf(d)*day.reduce((a,m)=>a+m[4],0));
+ const avg=a=>a.reduce((x,y)=>x+y,0)/7,d=S.day,k=kf(d);
+ let h=`<div class='sec'><div class='sum'><div><small>Avg calories</small><b>${Math.round(avg(kc))}</b></div><div><small>Avg protein</small><b>${Math.round(avg(pr))}g</b></div><div><small>Grocery items</small><b>${Object.keys(L).length}</b></div><div><small>Basket</small><b>${cur?inr(cur.total):'-'}</b></div></div>`;
+ if(cur){const ov=cur.total>S.bud;h+=`<div class='bar ${ov?'over':''}'><i style='width:${Math.min(100,cur.total/S.bud*100)}%'></i></div><small class='${ov?'warn':''}'>${ov?inr(cur.total-S.bud)+' over your '+inr(S.bud)+' budget. Try fewer people, fewer calories or a veg diet.':inr(S.bud-cur.total)+' under your '+inr(S.bud)+' budget.'}</small>`}
+ h+=`</div><div class='sec'><h2>Your week <small>Lock a meal to keep it when reshuffling</small></h2><div class='tabs' role='tablist'>`+DAYS.map((n,i)=>`<button class='tab' role='tab' data-d='${i}' aria-selected='${i===d}'>${n}</button>`).join('')+`</div><small>${DAYS[d]}: ${Math.round(kc[d])} kcal and ${Math.round(pr[d])}g protein per person (protein target ${S.protein}g)</small>`;
+ plan[d].forEach((m,s)=>{const lk=S.lock[d+'-'+s];h+=`<div class='mr ${lk?'lock':''}'><div class='sl'>${['Breakfast','Lunch','Dinner'][s]}</div><div class='mn'><b><i class='dt' style='background:${DC[m[2]]}'></i>${m[0]}</b><small>${Object.keys(m[6]).map(i=>ITEMS[i][0]).join(', ')}</small></div><div class='mx'>${Math.round(m[3]*k)} kcal<small>${Math.round(m[4]*k)}g protein</small></div><div class='ma'><button data-sw='${s}'>Swap</button><button data-lk='${s}' aria-pressed='${!!lk}'>${lk?'Locked':'Lock'}</button></div></div>`});
+ h+=`</div>`;
+ if(!cur){h+=`<div class='sec mute'>Select at least one store, or untick items you already have, to see prices.</div>`}else{
+ h+=`<div class='sec'><h2>Where to buy <small>${PR.Blinkit?'Prices from /api/prices (sample data)':'Sample prices'}</small></h2>`+o.map(x=>`<button class='opt' data-o='${x.name}' aria-pressed='${x===cur}'><span class='rd'></span><span class='on'>${x.name}${x===rec?`<span class='tag'>Best for you</span>`:''}<small>${x.stores.length} order${x.stores.length>1?'s':''}, delivery fees ${inr(x.fees)}</small></span><b>${inr(x.total)}</b></button>`).join('');
+ cur.stores.forEach(s=>{const its=Object.keys(cur.a).filter(i=>cur.a[i]===s);h+=`<div class='cart'><div class='ch'><b>${s.id}</b><span>${s.eta} · ${cur.sub[s.id]>=s.free?'free delivery':'delivery '+inr(s.fee)} · ${inr(cur.sub[s.id])}</span><a href='${s.url}' target='_blank' rel='noopener'>Open store</a></div><ul>`+its.map(i=>`<li><span>${ITEMS[i][0]} <small>${packs(i,L)} x ${ITEMS[i][2]}${ITEMS[i][1]}</small></span><b>${inr(packs(i,L)*priceOf(i,s))}</b></li>`).join('')+`</ul></div>`});
+ h+=`</div>`}
+ h+=`<div class='sec'><details><summary>Already have something at home?</summary><div class='f'><div class='chips'>`+Object.keys(L).map(i=>`<button class='chip' data-p='${i}' aria-pressed='${!!S.pantry[i]}'>${ITEMS[i][0]}, ${Math.round(L[i])}${ITEMS[i][1]}</button>`).join('')+`</div><p><button class='cp' id='cp'>Copy shopping list</button></p></div></details></div>`;
+ $('main').innerHTML=h;
+ $('kv').textContent=S.kcal;$('prv').textContent=S.protein+'g';$('prot').value=S.protein;$('pv').textContent=S.ppl;$('bv').textContent=inr(S.bud);$('kcal').value=S.kcal;$('bud').value=S.bud;
+ document.querySelectorAll('[data-k]').forEach(g=>{const k=g.dataset.k;g.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',g.dataset.multi?!!S[k][b.dataset.v]:S[k]===b.dataset.v))});
+ window._L=L}
+document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;const g=t.closest('[data-k]');
+ if(g){const k=g.dataset.k,v=t.dataset.v;if(g.dataset.multi)S[k][v]=S[k][v]?0:1;else S[k]=v;
+  if(k==='goal'){S.kcal={lose:1600,maintain:2000,gain:2600}[v];S.protein={lose:90,maintain:75,gain:130}[v];gen()}if(k==='diet'||k==='region'||k==='ex'){gen()}S.pick=null;render();return}
+ if(t.dataset.d!=null){S.day=+t.dataset.d}else if(t.dataset.sw!=null){swap(S.day,+t.dataset.sw);return}
+ else if(t.dataset.lk!=null){const x=S.day+'-'+t.dataset.lk;S.lock[x]=!S.lock[x]}
+ else if(t.dataset.o){S.pick=t.dataset.o}else if(t.dataset.p){S.pantry[t.dataset.p]=!S.pantry[t.dataset.p]}
+ else if(t.id==='re'){gen();S.pick=null}else if(t.id==='pm')S.ppl=Math.max(1,S.ppl-1);else if(t.id==='pp')S.ppl=Math.min(10,S.ppl+1);
+ else if(t.id==='cp'){const L=window._L;navigator.clipboard&&navigator.clipboard.writeText(Object.keys(L).filter(i=>!S.pantry[i]).map(i=>`${ITEMS[i][0]}: ${packs(i,L)} x ${ITEMS[i][2]}${ITEMS[i][1]}`).join(String.fromCharCode(10)));t.textContent='Copied';return}
+ else if(t.id==='loc'){const m=$('lm');if(!navigator.geolocation){m.textContent='Location not available';return}m.textContent='Locating...';navigator.geolocation.getCurrentPosition(async p=>{try{const j=await (await fetch('/api/stores?lat='+p.coords.latitude+'&lng='+p.coords.longitude)).json();m.textContent=j.stores.length+' stores available (sample list)'}catch(x){m.textContent='Could not load stores'}},()=>{m.textContent='Location blocked'});return}
+ else return;render()});
+$('kcal').oninput=e=>{S.kcal=+e.target.value;render()};$('prot').oninput=e=>{S.protein=+e.target.value;gen();render()};$('bud').oninput=e=>{S.bud=+e.target.value;render()};
+gen();render();
+fetch('/api/prices').then(r=>r.json()).then(j=>{PR=j.prices||{};render()}).catch(()=>{});
+</script></body></html>
